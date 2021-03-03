@@ -1,0 +1,133 @@
+{
+  "courses": [
+    {
+      "name": "Javascript",
+      "data": [
+        {
+          "name": "module-1",
+          "id": 1,
+          "status": "in progress"
+        },
+        {
+          "name": "module-2",
+          "id": 2,
+          "status": "submitted"
+        },
+        {
+          "name": "module-3",
+          "id": 3,
+          "status": "ready for release"
+        },
+        {
+          "name": "module-4",
+          "id": 4,
+          "status": "submitted"
+        },
+        {
+          "name": "module-5",
+          "id": 5,
+          "status": "submitted"
+        },
+        {
+          "name": "module-6",
+          "id": 6,
+          "status": "ready for release"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "name": "Python",
+      "data": [
+        {
+          "name": "module-1",
+          "id": 7,
+          "status": "in progress"
+        },
+        {
+          "name": "module-2",
+          "id": 8,
+          "status": "submitted"
+        },
+        {
+          "name": "module-3",
+          "id": 9,
+          "status": "ready for release"
+        },
+        {
+          "name": "module-4",
+          "id": 10,
+          "status": "submitted"
+        },
+        {
+          "name": "module-5",
+          "id": 11,
+          "status": "submitted"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "name": "Scala",
+      "data": [
+        {
+          "name": "module-1",
+          "id": 12,
+          "status": "in progress"
+        },
+        {
+          "name": "module-2",
+          "id": 13,
+          "status": "submitted"
+        },
+        {
+          "name": "module-3",
+          "id": 14,
+          "status": "ready for release"
+        },
+        {
+          "name": "module-4",
+          "id": 15,
+          "status": "submitted"
+        },
+        {
+          "name": "module-5",
+          "id": 16,
+          "status": "submitted"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "name": "Java",
+      "data": [
+        {
+          "name": "module-1",
+          "id": 17,
+          "status": "in progress"
+        },
+        {
+          "name": "module-2",
+          "id": 18,
+          "status": "in progress"
+        },
+        {
+          "name": "module-3",
+          "id": 19,
+          "status": "ready for release"
+        },
+        {
+          "name": "module-4",
+          "id": 20,
+          "status": "submitted"
+        },
+        {
+          "name": "module-5",
+          "id": 21,
+          "status": "submitted"
+        }
+      ],
+      "id": 4
+    }
+  ]
+}
