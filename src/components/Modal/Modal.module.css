@@ -1,0 +1,52 @@
+.overlay {
+  position: absolute;
+  width: 40%;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.modalBody {
+  position: absolute;
+  width: fit-content;
+  left: 10%;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  transform: scale(1.2);
+  top: 10px;
+  right: 30px;
+}
+
+@media screen and (min-width: 320px) {
+  .overlay {
+    min-width: 320px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .overlay {
+    width: 320px;
+    max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .overlay {
+    max-width: 512px;
+  }
+}

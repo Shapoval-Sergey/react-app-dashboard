@@ -32,6 +32,11 @@
           "name": "module-6",
           "id": 6,
           "status": "ready for release"
+        },
+        {
+          "name": "module-7",
+          "id": 7,
+          "status": "ready for release"
         }
       ],
       "id": 1
@@ -63,6 +68,11 @@
           "name": "module-5",
           "id": 11,
           "status": "submitted"
+        },
+        {
+          "name": "module-6",
+          "id": 12,
+          "status": "ready for release"
         }
       ],
       "id": 2
@@ -94,6 +104,11 @@
           "name": "module-5",
           "id": 16,
           "status": "submitted"
+        },
+        {
+          "name": "module-6",
+          "id": 17,
+          "status": "ready for release"
         }
       ],
       "id": 3

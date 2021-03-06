@@ -1,57 +1,205 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import IconButton from "@material-ui/core/IconButton";
-import InfoIcon from "@material-ui/icons/Info";
-import tileData from "./tileData";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Modal from './Modal/Modal';
+import VerticalTabs from './Tabs';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
+    marginLeft: '40px',
+    width: '100%',
+    maxWidth: 560,
     backgroundColor: theme.palette.background.paper,
+    position: 'relative',
+    overflow: 'auto',
+    maxHeight: 500,
   },
-  gridList: {
-    width: 500,
-    height: 450,
+  listSection: {
+    backgroundColor: 'inherit',
   },
-  icon: {
-    color: "rgba(255, 255, 255, 0.54)",
+  ul: {
+    backgroundColor: 'inherit',
+    padding: 0,
   },
 }));
 
-export default function TitlebarGridList() {
+export default function PinnedSubheaderList({ courses }) {
   const classes = useStyles();
+  const [isModal, setisModal] = useState(false);
+
+  let arrProgress = [];
+  let arrSubmit = [];
+  let arrRelease = [];
+  courses.map(function (course) {
+    return course.data.map(function (obj) {
+      if (obj.status === 'in progress') {
+        arrProgress.push(obj);
+      }
+      if (obj.status === 'submitted') {
+        arrSubmit.push(obj);
+      }
+      if (obj.status === 'ready for release') {
+        arrRelease.push(obj);
+      }
+      return obj;
+    });
+  });
+
+  console.log(arrProgress);
+
+  const toggleModal = () => {
+    const toggledIsOpen = isModal ? false : true;
+    setisModal(toggledIsOpen);
+  };
 
   return (
-    <div className={classes.root}>
-      <GridList cellHeight={180} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={1} style={{ height: "auto" }}>
-          <ListSubheader component="div">December</ListSubheader>
-        </GridListTile>
-        {tileData.map((tile) => (
-          <GridListTile key={tile.img}>
-            <img src={tile.img} alt={tile.title} />
-            <GridListTileBar
-              title={tile.title}
-              subtitle={<span>by: {tile.author}</span>}
-              actionIcon={
-                <IconButton
-                  aria-label={`info about ${tile.title}`}
-                  className={classes.icon}
+    <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+      <div>
+        <h2
+          style={{
+            margin: '0px',
+            fontSize: '28px',
+            backgroundColor: 'grey',
+            width: '400px',
+            textAlign: 'center',
+            padding: '10px 0px 10px 0px',
+            marginLeft: '40px',
+            marginTop: '30px',
+            color: 'yellow',
+          }}
+        >
+          In progress ({arrProgress.length})
+        </h2>
+        <List className={classes.root} subheader={<li />}>
+          {courses.map(course => (
+            <li key={course.id} className={classes.listSection}>
+              <ul className={classes.ul}>
+                <ListItem
+                  onClick={toggleModal}
+                  style={{ fontSize: '30px', cursor: 'pointer' }}
                 >
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
-          </GridListTile>
-        ))}
-      </GridList>
+                  {course.name}
+                </ListItem>
+                {course.data.map(
+                  obj =>
+                    obj.status === 'in progress' && (
+                      <ListItem key={obj.id}>
+                        <ListItemText
+                          onClick={toggleModal}
+                          secondary={obj.name}
+                          style={{
+                            cursor: 'pointer',
+                            border: '1px solid grey',
+                            padding: '5px 0 5px 0',
+                          }}
+                        />
+                      </ListItem>
+                    ),
+                )}
+              </ul>
+            </li>
+          ))}
+        </List>
+      </div>
+      <div>
+        <h2
+          style={{
+            margin: '0px',
+            fontSize: '28px',
+            backgroundColor: 'grey',
+            width: '400px',
+            textAlign: 'center',
+            padding: '10px 0px 10px 0px',
+            marginLeft: '40px',
+            marginTop: '30px',
+            color: 'yellow',
+          }}
+        >
+          Submitted ({arrSubmit.length})
+        </h2>
+        <List className={classes.root} subheader={<li />}>
+          {courses.map(course => (
+            <li key={course.id} className={classes.listSection}>
+              <ul className={classes.ul}>
+                <ListItem
+                  onClick={toggleModal}
+                  style={{ fontSize: '30px', cursor: 'pointer' }}
+                >
+                  {course.name}
+                </ListItem>
+                {course.data.map(
+                  obj =>
+                    obj.status === 'submitted' && (
+                      <ListItem key={obj.id}>
+                        <ListItemText
+                          onClick={toggleModal}
+                          secondary={obj.name}
+                          style={{
+                            cursor: 'pointer',
+                            border: '1px solid grey',
+                            padding: '5px 0 5px 0',
+                          }}
+                        />
+                      </ListItem>
+                    ),
+                )}
+              </ul>
+            </li>
+          ))}
+        </List>
+      </div>
+      <div>
+        <h2
+          style={{
+            margin: '0px',
+            fontSize: '28px',
+            backgroundColor: 'grey',
+            width: '400px',
+            textAlign: 'center',
+            padding: '10px 0px 10px 0px',
+            marginLeft: '40px',
+            marginTop: '30px',
+            color: 'yellow',
+          }}
+        >
+          Ready for release ({arrRelease.length})
+        </h2>
+        <List className={classes.root} subheader={<li />}>
+          {courses.map(course => (
+            <li key={course.id} className={classes.listSection}>
+              <ul className={classes.ul}>
+                <ListItem
+                  onClick={toggleModal}
+                  style={{ fontSize: '30px', cursor: 'pointer' }}
+                >
+                  {course.name}
+                </ListItem>
+                {course.data.map(
+                  obj =>
+                    obj.status === 'ready for release' && (
+                      <ListItem key={obj.id}>
+                        <ListItemText
+                          onClick={toggleModal}
+                          secondary={obj.name}
+                          style={{
+                            cursor: 'pointer',
+                            border: '1px solid grey',
+                            padding: '5px 0 5px 0',
+                          }}
+                        />
+                      </ListItem>
+                    ),
+                )}
+              </ul>
+            </li>
+          ))}
+        </List>
+      </div>
+      {isModal && (
+        <Modal closeModal={toggleModal} children={<VerticalTabs />} />
+      )}
     </div>
   );
 }

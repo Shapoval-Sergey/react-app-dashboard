@@ -1,11 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import coursesOperations from "../redux/courses/coursesOperations";
-import PrimarySearchAppBar from "./AppBar";
-// import VerticalTabs from "./Tabs";
-import data from "../db.json";
-import s from "./App.css";
+import coursesOperations from '../redux/courses/coursesOperations';
+import coursesSelectors from '../redux/courses/coursesSelectors';
+
+import PinnedSubheaderList from './CoursesList';
+import data from '../db.json';
+import s from './App.module.css';
+
+import SearchAppBar from './AppBar';
 
 class App extends Component {
   componentDidMount() {
@@ -15,14 +18,19 @@ class App extends Component {
   render() {
     return (
       <div className={s.box}>
-        <PrimarySearchAppBar />
+        <SearchAppBar courses={this.props.courses} />
+
+        <PinnedSubheaderList courses={this.props.courses} />
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  courses: coursesSelectors.getItems(state),
+});
 
 const mapDispatchToProps = {
   onFetchCourses: coursesOperations.fetchCourses,
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
