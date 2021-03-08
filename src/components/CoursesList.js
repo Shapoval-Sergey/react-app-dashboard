@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Modal from './Modal/Modal';
 import VerticalTabs from './Tabs';
+import coursesSelectors from '../redux/courses/coursesSelectors';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,13 +26,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PinnedSubheaderList({ courses }) {
+function PinnedSubheaderList({ courses }) {
   const classes = useStyles();
   const [isModal, setisModal] = useState(false);
+  const [course, setCourse] = useState(null);
 
   let arrProgress = [];
   let arrSubmit = [];
   let arrRelease = [];
+
   courses.map(function (course) {
     return course.data.map(function (obj) {
       if (obj.status === 'in progress') {
@@ -47,11 +50,19 @@ export default function PinnedSubheaderList({ courses }) {
     });
   });
 
-  console.log(arrProgress);
-
   const toggleModal = () => {
     const toggledIsOpen = isModal ? false : true;
     setisModal(toggledIsOpen);
+  };
+
+  const handleClick = e => {
+    setCourse(
+      courses.find(course =>
+        course.id === Number(e.target.id) ? course : null,
+      ),
+    );
+
+    toggleModal();
   };
 
   return (
@@ -77,24 +88,33 @@ export default function PinnedSubheaderList({ courses }) {
             <li key={course.id} className={classes.listSection}>
               <ul className={classes.ul}>
                 <ListItem
-                  onClick={toggleModal}
-                  style={{ fontSize: '30px', cursor: 'pointer' }}
+                  key={course.id}
+                  id={course.id}
+                  onClick={handleClick}
+                  style={{
+                    fontSize: '30px',
+                    cursor: 'pointer',
+                    paddingBottom: '4px',
+                  }}
                 >
                   {course.name}
                 </ListItem>
                 {course.data.map(
                   obj =>
                     obj.status === 'in progress' && (
-                      <ListItem key={obj.id}>
-                        <ListItemText
-                          onClick={toggleModal}
-                          secondary={obj.name}
-                          style={{
-                            cursor: 'pointer',
-                            border: '1px solid grey',
-                            padding: '5px 0 5px 0',
-                          }}
-                        />
+                      <ListItem
+                        key={obj.id}
+                        id={course.id}
+                        onClick={handleClick}
+                        style={{
+                          cursor: 'pointer',
+                          border: '1px solid grey',
+                          borderRadius: '10px',
+                          padding: '5px 0 5px 20px',
+                          marginBottom: '8px',
+                        }}
+                      >
+                        {obj.name}
                       </ListItem>
                     ),
                 )}
@@ -124,24 +144,33 @@ export default function PinnedSubheaderList({ courses }) {
             <li key={course.id} className={classes.listSection}>
               <ul className={classes.ul}>
                 <ListItem
-                  onClick={toggleModal}
-                  style={{ fontSize: '30px', cursor: 'pointer' }}
+                  onClick={handleClick}
+                  style={{
+                    fontSize: '30px',
+                    cursor: 'pointer',
+                    paddingBottom: '4px',
+                  }}
+                  key={course.id}
+                  id={course.id}
                 >
                   {course.name}
                 </ListItem>
                 {course.data.map(
                   obj =>
                     obj.status === 'submitted' && (
-                      <ListItem key={obj.id}>
-                        <ListItemText
-                          onClick={toggleModal}
-                          secondary={obj.name}
-                          style={{
-                            cursor: 'pointer',
-                            border: '1px solid grey',
-                            padding: '5px 0 5px 0',
-                          }}
-                        />
+                      <ListItem
+                        key={obj.id}
+                        id={course.id}
+                        onClick={handleClick}
+                        style={{
+                          cursor: 'pointer',
+                          border: '1px solid grey',
+                          borderRadius: '10px',
+                          padding: '5px 0 5px 20px',
+                          marginBottom: '8px',
+                        }}
+                      >
+                        {obj.name}
                       </ListItem>
                     ),
                 )}
@@ -171,24 +200,33 @@ export default function PinnedSubheaderList({ courses }) {
             <li key={course.id} className={classes.listSection}>
               <ul className={classes.ul}>
                 <ListItem
-                  onClick={toggleModal}
-                  style={{ fontSize: '30px', cursor: 'pointer' }}
+                  onClick={handleClick}
+                  style={{
+                    fontSize: '30px',
+                    cursor: 'pointer',
+                    paddingBottom: '4px',
+                  }}
+                  id={course.id}
+                  key={course.id}
                 >
                   {course.name}
                 </ListItem>
                 {course.data.map(
                   obj =>
                     obj.status === 'ready for release' && (
-                      <ListItem key={obj.id}>
-                        <ListItemText
-                          onClick={toggleModal}
-                          secondary={obj.name}
-                          style={{
-                            cursor: 'pointer',
-                            border: '1px solid grey',
-                            padding: '5px 0 5px 0',
-                          }}
-                        />
+                      <ListItem
+                        key={obj.id}
+                        id={course.id}
+                        onClick={handleClick}
+                        style={{
+                          cursor: 'pointer',
+                          border: '1px solid grey',
+                          borderRadius: '10px',
+                          padding: '5px 0 5px 20px',
+                          marginBottom: '8px',
+                        }}
+                      >
+                        {obj.name}
                       </ListItem>
                     ),
                 )}
@@ -198,8 +236,17 @@ export default function PinnedSubheaderList({ courses }) {
         </List>
       </div>
       {isModal && (
-        <Modal closeModal={toggleModal} children={<VerticalTabs />} />
+        <Modal
+          closeModal={toggleModal}
+          children={<VerticalTabs course={course} />}
+        />
       )}
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  courses: coursesSelectors.getVisibleCourses(state),
+});
+
+export default connect(mapStateToProps)(PinnedSubheaderList);

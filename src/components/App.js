@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import coursesOperations from '../redux/courses/coursesOperations';
 import coursesSelectors from '../redux/courses/coursesSelectors';
 
-import PinnedSubheaderList from './CoursesList';
-import data from '../db.json';
-import s from './App.module.css';
-
 import SearchAppBar from './AppBar';
+import PinnedSubheaderList from './CoursesList';
+import Variants from './Skeleton';
+import data from '../db.json';
+
+import s from './App.module.css';
 
 class App extends Component {
   componentDidMount() {
@@ -18,15 +19,22 @@ class App extends Component {
   render() {
     return (
       <div className={s.box}>
-        <SearchAppBar courses={this.props.courses} />
+        {this.props.isLoading && <Variants />}
 
-        <PinnedSubheaderList courses={this.props.courses} />
+        {!this.props.isLoading && (
+          <>
+            <SearchAppBar courses={this.props.courses} />
+
+            <PinnedSubheaderList />
+          </>
+        )}
       </div>
     );
   }
 }
 const mapStateToProps = state => ({
   courses: coursesSelectors.getItems(state),
+  isLoading: state.courses.loading,
 });
 
 const mapDispatchToProps = {

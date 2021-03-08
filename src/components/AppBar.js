@@ -6,6 +6,10 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 import SearchIcon from '@material-ui/icons/Search';
+import { connect } from 'react-redux';
+
+import coursesSelectors from '../redux/courses/coursesSelectors';
+import coursesActions from '../redux/courses/coursesActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,7 +67,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SearchAppBar({ courses }) {
+function SearchAppBar({ courses, value, onChangeFilter }) {
   const classes = useStyles();
 
   return (
@@ -76,6 +80,8 @@ export default function SearchAppBar({ courses }) {
             </div>
             <InputBase
               placeholder="Search…"
+              value={value}
+              onChange={e => onChangeFilter(e.target.value)}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -89,3 +95,13 @@ export default function SearchAppBar({ courses }) {
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  value: coursesSelectors.getFilter(state),
+});
+
+const mapDispatchToProps = {
+  onChangeFilter: coursesActions.changeFilter,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchAppBar);

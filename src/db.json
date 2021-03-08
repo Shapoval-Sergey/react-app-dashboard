@@ -46,32 +46,32 @@
       "data": [
         {
           "name": "module-1",
-          "id": 7,
+          "id": 1,
           "status": "in progress"
         },
         {
           "name": "module-2",
-          "id": 8,
+          "id": 2,
           "status": "submitted"
         },
         {
           "name": "module-3",
-          "id": 9,
+          "id": 3,
           "status": "ready for release"
         },
         {
           "name": "module-4",
-          "id": 10,
+          "id": 4,
           "status": "submitted"
         },
         {
           "name": "module-5",
-          "id": 11,
+          "id": 5,
           "status": "submitted"
         },
         {
           "name": "module-6",
-          "id": 12,
+          "id": 6,
           "status": "ready for release"
         }
       ],
@@ -82,32 +82,32 @@
       "data": [
         {
           "name": "module-1",
-          "id": 12,
+          "id": 1,
           "status": "in progress"
         },
         {
           "name": "module-2",
-          "id": 13,
+          "id": 2,
           "status": "submitted"
         },
         {
           "name": "module-3",
-          "id": 14,
+          "id": 3,
           "status": "ready for release"
         },
         {
           "name": "module-4",
-          "id": 15,
+          "id": 4,
           "status": "submitted"
         },
         {
           "name": "module-5",
-          "id": 16,
+          "id": 5,
           "status": "submitted"
         },
         {
           "name": "module-6",
-          "id": 17,
+          "id": 6,
           "status": "ready for release"
         }
       ],
@@ -118,27 +118,27 @@
       "data": [
         {
           "name": "module-1",
-          "id": 17,
+          "id": 1,
           "status": "in progress"
         },
         {
           "name": "module-2",
-          "id": 18,
+          "id": 2,
           "status": "in progress"
         },
         {
           "name": "module-3",
-          "id": 19,
+          "id": 3,
           "status": "ready for release"
         },
         {
           "name": "module-4",
-          "id": 20,
+          "id": 4,
           "status": "submitted"
         },
         {
           "name": "module-5",
-          "id": 21,
+          "id": 5,
           "status": "submitted"
         }
       ],

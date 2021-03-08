@@ -6,29 +6,38 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+export function TabPanel(props) {
+  const { value, course } = props;
 
-  return (
+  return course.data.map(obj => (
     <div
+      key={obj.id}
       role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
+      hidden={value !== obj.id - 1}
+      id={`vertical-tabpanel-${obj.id - 1}`}
+      aria-labelledby={`vertical-tab-${obj.id - 1}`}
     >
-      {value === index && (
+      {value === obj.id - 1 && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Typography>
+            {obj.name}
+            <span
+              style={{
+                fontSize: '12px',
+                fontWeight: '200',
+                marginLeft: '20px',
+              }}
+            >
+              {obj.status}
+            </span>
+          </Typography>
         </Box>
       )}
     </div>
-  );
+  ));
 }
 
 TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
   value: PropTypes.any.isRequired,
 };
 
@@ -44,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function VerticalTabs({ courses }) {
+export default function VerticalTabs({ course }) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
@@ -53,38 +62,23 @@ export default function VerticalTabs({ courses }) {
   };
 
   return (
-    <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
-        <Tab label="Item One" />
-      </Tabs>
-      <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
-    </div>
+    <>
+      <h2 style={{ display: 'block', margin: '0px' }}>{course.name}</h2>
+      <div className={classes.root}>
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Vertical tabs example"
+          className={classes.tabs}
+        >
+          {course.data.map(obj => (
+            <Tab label={obj.name} key={obj.id} id={obj.id} />
+          ))}
+        </Tabs>
+        <TabPanel value={value} course={course} />
+      </div>
+    </>
   );
 }
